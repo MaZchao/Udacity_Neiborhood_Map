@@ -2,7 +2,7 @@
 
 class ViewModal {
   constructor() {
-    this.locationInput = ko.observable();
+    this.filterInput = ko.observable(); // value of location filter input
   }
 }
 
