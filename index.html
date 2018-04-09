@@ -6,13 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Neiborhood-map</title>
+  <link rel="stylesheet" href="style/base.css">
   <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
   <div class="app-wrapper">
     <div class="location-list">
-
+      <h2 class="list-title">Locations</h2>
+      <input data-bind="value: locationInput" class="filter-input" type="text" placeholder="Type here to filter locations">
+      <ul class="list">
+        
+      </ul>
     </div>
     <div id="map">
 

@@ -1,10 +1,9 @@
 /* global ko */
 
 class ViewModal {
-  constructor(first, last) {
-    console.log(first);
-    // start here
+  constructor() {
+    this.locationInput = ko.observable();
   }
 }
 
-ko.applyBindings(new ViewModal('Planet', 'Earth'));
+ko.applyBindings(new ViewModal());
