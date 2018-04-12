@@ -8,6 +8,8 @@ const markers = [];
 let normalMarkerImage;
 let highlightMarkerImage;
 
+let infoWindow;
+
 /**
  * init google map
  */
@@ -23,10 +25,11 @@ function initMap() {
   normalMarkerImage = makeMarkerWithColor('62efff');
   highlightMarkerImage = makeMarkerWithColor('008ba3');
   // create infowindow
-  const infoWindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
 
   // clean infowindow on close
   infoWindow.addListener('closeclick', () => {
+    infoWindow.marker.setIcon(normalMarkerImage);
     infoWindow.marker = null;
   });
 
@@ -55,14 +58,7 @@ function initMap() {
     bounds.extend(marker.position);
     // click marker to open info window.
     marker.addListener('click', () => {
-      populateInfoWindow(marker, infoWindow);
-    });
-    // change marker's color on hover
-    marker.addListener('mouseover', () => {
-      marker.setIcon(highlightMarkerImage);
-    });
-    marker.addListener('mouseout', () => {
-      marker.setIcon(normalMarkerImage);
+      populateInfoWindow(marker);
     });
     markers.push(marker);
   });
@@ -89,11 +85,21 @@ function makeMarkerWithColor(color) {
  * @param {*} marker marker being clicked
  * @param {*} infoWindow info window instance
  */
-function populateInfoWindow(marker, infoWindow) {
+function populateInfoWindow(marker) {
   if (infoWindow.marker !== marker) {
+    // if clicked on a new marker
+    if (infoWindow.marker) {
+      infoWindow.marker.setIcon(normalMarkerImage);
+    }
     infoWindow.marker = marker; // eslint-disable-line
-    infoWindow.setContent('');
+    marker.setIcon(highlightMarkerImage);
+    // show loading indicator
+    infoWindow.setContent('<div class="infowindow-wrapper"><div class="loading"></div></div>');
     infoWindow.open(map, marker);
+  } else {
+    // if clicked on a marker that's already open
+    google.maps.event.trigger(infoWindow, 'closeclick');
+    infoWindow.close();
   }
 }
 
@@ -129,15 +135,14 @@ class ViewModal {
     map.fitBounds(bounds);
   }
 
-  onItemMouseOver(locationTitle) {
-    const marker = markers.find(m => m.title === locationTitle);
-    marker.setIcon(highlightMarkerImage);
-  }
-
-  onItemMouseOut(locationTitle) {
-    const marker = markers.find(m => m.title === locationTitle);
-    marker.setIcon(normalMarkerImage);
+  onItemClicked(title) {
+    const markerFinder = m => m.title === title;
+    const marker = markers.find(markerFinder);
+    google.maps.event.trigger(marker, 'click');
   }
 }
 
-ko.applyBindings(new ViewModal());
+const viewModal = new ViewModal();
+console.log(viewModal);
+
+ko.applyBindings(viewModal);

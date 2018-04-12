@@ -50,8 +50,37 @@ body {
 .location-list .list-item {
   color: #fff;
   padding: 15px;
+  cursor: pointer;
 }
 
 .location-list .list-item:hover {
   background-color: #008ba3;
+}
+
+.infowindow-wrapper {
+  width: 300px;
+  height: 300px;
+}
+
+/* loading indicator style */
+.loading {
+  display: block;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border: 3px solid #008ba32a;
+  border-top-color: #008ba3;
+  animation: spin 1s infinite linear;
+  position: relative;
+  margin: 0 auto;
+  top: 42%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
