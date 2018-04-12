@@ -104,6 +104,9 @@ function populateInfoWindow(marker) {
         infoWindow.setContent(`<div class="infowindow-wrapper"><div>${detail.snippet} ... <a class="infowindow-detail-link" target="_blank" href="${wikiDetailUrl}${
           detail.pageid
         }">more</a></div></div>`);
+      }).catch(() => {
+        // fetch error handle
+        infoWindow.setContent('<div class="infowindow.wrapper"><p style="text-align: center;">Connection error.</p><p>Please check yout internet connection and try again.</p></div>');
       });
   } else {
     // if clicked on a marker that's already open
