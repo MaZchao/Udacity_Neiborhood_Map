@@ -49,5 +49,9 @@ body {
 
 .location-list .list-item {
   color: #fff;
-  padding: 10px;
+  padding: 15px;
+}
+
+.location-list .list-item:hover {
+  background-color: #008ba3;
 }

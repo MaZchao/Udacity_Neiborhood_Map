@@ -14,9 +14,9 @@
   <div class="app-wrapper">
     <div class="location-list">
       <h2 class="list-title">Locations</h2>
-      <input data-bind="value: filterInput" class="filter-input" type="text" placeholder="Type here to filter locations">
-      <ul class="list">
-        
+      <input data-bind="textInput: filterInput, event: { change: onFilterChanged }" class="filter-input" type="text" placeholder="Type here to filter locations">
+      <ul class="list" data-bind="foreach: listItems">
+        <li class="list-item" data-bind="text: title"></li>
       </ul>
     </div>
     <div id="map">
@@ -24,6 +24,8 @@
     </div>
   </div>
   <script src="https://cdn.bootcss.com/knockout/3.4.2/knockout-debug.js"></script>
+  <script src="js/mapStyle.js"></script>
+  <script src="js/locationData.js"></script>
   <script src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARvaRbzVuPoDw-19wfFWrDhg4sOnt84a8&callback=initMap"></script>
 </body>
