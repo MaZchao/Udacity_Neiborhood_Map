@@ -1,6 +1,6 @@
 # Udacity_Neiborhood_Map
 
-## 运行方式
+## 运行方式
 在浏览器中打开项目根目录的index.html。
 
 ## 功能
