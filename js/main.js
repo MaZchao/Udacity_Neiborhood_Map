@@ -20,7 +20,6 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
     center: chengdu,
-    styles: mapStyle,
   });
   normalMarkerImage = makeMarkerWithColor('62efff');
   highlightMarkerImage = makeMarkerWithColor('008ba3');
@@ -122,6 +121,7 @@ class ViewModal {
   constructor() {
     this.filterInput = ko.observable(); // value of location filter input
     this.listItems = ko.observableArray(locationData.slice());
+    this.isMenuBarShow = ko.observable(false);
   }
 
   // User filter input event
@@ -147,10 +147,21 @@ class ViewModal {
     map.fitBounds(bounds);
   }
 
-  onItemClicked(title) {
-    const markerFinder = m => m.title === title;
+  /**
+   * When list item is clicked, related marker should repond.
+   * @param {string} title The wikiKeyword of the list item.
+   */
+  onItemClicked(wikiKeyword) {
+    const markerFinder = m => m.title === wikiKeyword;
     const marker = markers.find(markerFinder);
     google.maps.event.trigger(marker, 'click');
+  }
+
+  /**
+   * Show or hide menu bar on small screen
+   */
+  toggleMenuBar() {
+    this.isMenuBarShow(!this.isMenuBarShow());
   }
 }
 

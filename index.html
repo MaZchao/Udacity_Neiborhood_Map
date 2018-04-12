@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <div class="app-wrapper">
+  <div class="app-wrapper" data-bind="css: { 'show-menu': isMenuBarShow }">
     <div class="location-list">
       <h2 class="list-title">Locations</h2>
       <input data-bind="textInput: filterInput, event: { change: onFilterChanged }" class="filter-input" type="text" placeholder="Type here to filter locations">
@@ -19,8 +19,19 @@
         <li class="list-item" data-bind="text: title, click: $root.onItemClicked.bind(this, wikiKeyword)"></li>
       </ul>
     </div>
-    <div id="map">
 
+    <div class="main-content">
+      <div class="top-bar">
+        <div class="menu-icon" data-bind="click: toggleMenuBar">
+          <span class="menu-icon-line"></span>
+          <span class="menu-icon-line"></span>
+          <span class="menu-icon-line"></span>
+        </div>
+        <h1 class="top-bar-title">Neiborhood Map</h1>
+      </div>
+      <div id="map">
+
+      </div>
     </div>
   </div>
   <script src="https://cdn.bootcss.com/knockout/3.4.2/knockout-debug.js"></script>

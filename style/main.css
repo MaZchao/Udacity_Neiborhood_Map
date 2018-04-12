@@ -10,7 +10,7 @@ body {
   display: flex;
 }
 
-.app-wrapper .location-list {
+.location-list {
   width: 300px;
   height: 100%;
   overflow-y: scroll;
@@ -23,6 +23,49 @@ body {
 
 .app-wrapper #map {
   flex: 1;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* top bar styles  */
+.top-bar {
+  background-color: #008ba3;
+  height: 44px;
+  width: 100%;
+  position: relative;
+}
+
+.top-bar .top-bar-title {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  line-height: 44px;
+  font-size: 22px;
+  font-family: 'Trebuchet MS, Lucida Sans Unicode, Lucida Grande, Lucida Sans,Arial, sans-serif';
+}
+
+.top-bar .menu-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 21px;
+  width: 24px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+  padding: 12px 15px;
+}
+
+.menu-icon .menu-icon-line {
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 1px;
 }
 
 /* location-list detail */
@@ -81,6 +124,7 @@ body {
   position: relative;
   margin: 0 auto;
 }
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -88,5 +132,53 @@ body {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* for small screens */
+@media screen and (max-width: 768px) {
+  .top-bar .menu-icon {
+    display: flex;
+  }
+
+  .location-list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .show-menu .location-list {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .show-menu .main-content {
+    transform: translateX(300px);
+  }
+}
+
+/* for small screens like iphone 5 */
+@media screen and (max-width: 320px) {
+  .location-list {
+    width: 240px;
+  }
+
+  .show-menu .location-list {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .show-menu .main-content {
+    transform: translateX(240px);
   }
 }
