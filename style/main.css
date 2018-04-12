@@ -59,7 +59,14 @@ body {
 
 .infowindow-wrapper {
   width: 300px;
-  height: 300px;
+  min-height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infowindow-detail-link {
+  color: #62efff;
 }
 
 /* loading indicator style */
@@ -73,7 +80,6 @@ body {
   animation: spin 1s infinite linear;
   position: relative;
   margin: 0 auto;
-  top: 42%;
 }
 @keyframes spin {
   0% {

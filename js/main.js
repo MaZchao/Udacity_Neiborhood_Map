@@ -1,4 +1,4 @@
-/* global ko, google, document, mapStyle, locationData */
+/* global ko, google, document, mapStyle, locationData, getLocationDetail, wikiDetailUrl */
 
 let map;
 
@@ -49,7 +49,7 @@ function initMap() {
     const marker = new google.maps.Marker({
       position: data.location,
       map,
-      title: data.title,
+      title: data.wikiKeyword,
       animation: google.maps.Animation.DROP,
       id: index,
       icon: normalMarkerImage,
@@ -96,6 +96,15 @@ function populateInfoWindow(marker) {
     // show loading indicator
     infoWindow.setContent('<div class="infowindow-wrapper"><div class="loading"></div></div>');
     infoWindow.open(map, marker);
+    // get location detail from wiki api
+    getLocationDetail(marker.title)
+      .then(res => res.json())
+      .then((data) => {
+        const detail = data.query.search[0];
+        infoWindow.setContent(`<div class="infowindow-wrapper"><div>${detail.snippet} ... <a class="infowindow-detail-link" target="_blank" href="${wikiDetailUrl}${
+          detail.pageid
+        }">more</a></div></div>`);
+      });
   } else {
     // if clicked on a marker that's already open
     google.maps.event.trigger(infoWindow, 'closeclick');
@@ -143,6 +152,5 @@ class ViewModal {
 }
 
 const viewModal = new ViewModal();
-console.log(viewModal);
 
 ko.applyBindings(viewModal);
