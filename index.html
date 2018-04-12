@@ -16,7 +16,7 @@
       <h2 class="list-title">Locations</h2>
       <input data-bind="textInput: filterInput, event: { change: onFilterChanged }" class="filter-input" type="text" placeholder="Type here to filter locations">
       <ul class="list" data-bind="foreach: listItems">
-        <li class="list-item" data-bind="text: title"></li>
+        <li class="list-item" data-bind="text: title, event: { mouseover: $root.onItemMouseOver.bind(this, title), mouseout: $root.onItemMouseOut.bind(this, title) }"></li>
       </ul>
     </div>
     <div id="map">

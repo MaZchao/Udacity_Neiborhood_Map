@@ -4,6 +4,10 @@ let map;
 
 const markers = [];
 
+// customize marker appearance
+let normalMarkerImage;
+let highlightMarkerImage;
+
 /**
  * init google map
  */
@@ -16,7 +20,8 @@ function initMap() {
     center: chengdu,
     styles: mapStyle,
   });
-
+  normalMarkerImage = makeMarkerWithColor('62efff');
+  highlightMarkerImage = makeMarkerWithColor('008ba3');
   // create infowindow
   const infoWindow = new google.maps.InfoWindow();
 
@@ -28,15 +33,13 @@ function initMap() {
   // create bounds
   const bounds = new google.maps.LatLngBounds();
 
-  // customize marker appearance
+  // add marker shadow
   const pinShadow = new google.maps.MarkerImage(
     'http://chart.apis.google.com/chart?chst=d_map_pin_shadow',
     new google.maps.Size(40, 37),
     new google.maps.Point(0, 0),
     new google.maps.Point(12, 35),
   );
-  const normalMarkerImage = makeMarkerWithColor('62efff');
-  const highlightMarkerImage = makeMarkerWithColor('008ba3');
 
   // create markers
   locationData.forEach((data, index) => {
@@ -67,6 +70,10 @@ function initMap() {
   map.fitBounds(bounds);
 }
 
+/**
+ * get marker icon with given color
+ * @param {String} color color string (no '#')
+ */
 function makeMarkerWithColor(color) {
   const pinImage = new google.maps.MarkerImage(
     `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|${color}`,
@@ -120,6 +127,16 @@ class ViewModal {
     });
     // replace the map so that all filtered markers are shown.
     map.fitBounds(bounds);
+  }
+
+  onItemMouseOver(locationTitle) {
+    const marker = markers.find(m => m.title === locationTitle);
+    marker.setIcon(highlightMarkerImage);
+  }
+
+  onItemMouseOut(locationTitle) {
+    const marker = markers.find(m => m.title === locationTitle);
+    marker.setIcon(normalMarkerImage);
   }
 }
 
